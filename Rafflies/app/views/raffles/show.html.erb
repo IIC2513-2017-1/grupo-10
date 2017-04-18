@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @raffle.end_date %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @raffle.start_date %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @raffle.description %>
+</p>
+
+<%= link_to 'Edit', edit_raffle_path(@raffle) %> |
+<%= link_to 'Back', raffles_path %>
