@@ -1,3 +1,3 @@
 class Reaction < ApplicationRecord
-    enum reaction_code: []
+  enum reaction_code: []
 end
