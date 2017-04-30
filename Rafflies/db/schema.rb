@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430215447) do
+ActiveRecord::Schema.define(version: 20170430220230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 20170430215447) do
     t.string   "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "wallet_id"
+    t.index ["wallet_id"], name: "index_users_on_wallet_id", using: :btree
   end
 
   create_table "wallets", force: :cascade do |t|
@@ -94,4 +96,5 @@ ActiveRecord::Schema.define(version: 20170430215447) do
   add_foreign_key "reactions", "raffles"
   add_foreign_key "reactions", "reaction_representations"
   add_foreign_key "reactions", "users"
+  add_foreign_key "users", "wallets"
 end
