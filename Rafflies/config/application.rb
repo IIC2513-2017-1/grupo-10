@@ -17,5 +17,9 @@ module Rafflies
 				ENV[key.to_s] = value
 			end if File.exists?(env_file)
 		end
+
+		console do
+  		ActiveRecord::Base.connection
+		end
   end
 end
