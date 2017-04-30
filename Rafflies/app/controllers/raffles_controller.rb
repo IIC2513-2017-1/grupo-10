@@ -15,6 +15,7 @@ class RafflesController < ApplicationController
   # GET /raffles/new
   def new
     @raffle = Raffle.new
+		@users = User.all
   end
 
   # GET /raffles/1/edit
