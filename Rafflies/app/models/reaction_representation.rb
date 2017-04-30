@@ -1,0 +1,2 @@
+class ReactionRepresentation < ApplicationRecord
+end
