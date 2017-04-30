@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430204928) do
+ActiveRecord::Schema.define(version: 20170430210051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,8 +50,14 @@ ActiveRecord::Schema.define(version: 20170430204928) do
   end
 
   create_table "reactions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "user_id"
+    t.integer  "raffle_id"
+    t.integer  "reaction_representation_id"
+    t.index ["raffle_id"], name: "index_reactions_on_raffle_id", using: :btree
+    t.index ["reaction_representation_id"], name: "index_reactions_on_reaction_representation_id", using: :btree
+    t.index ["user_id"], name: "index_reactions_on_user_id", using: :btree
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -78,4 +84,7 @@ ActiveRecord::Schema.define(version: 20170430204928) do
   add_foreign_key "numbers", "raffles"
   add_foreign_key "numbers", "users"
   add_foreign_key "raffles", "users"
+  add_foreign_key "reactions", "raffles"
+  add_foreign_key "reactions", "reaction_representations"
+  add_foreign_key "reactions", "users"
 end
