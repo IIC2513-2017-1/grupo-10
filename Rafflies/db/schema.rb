@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430210714) do
+ActiveRecord::Schema.define(version: 20170430215447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170430210714) do
     t.string   "image"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "raffle_id"
+    t.index ["raffle_id"], name: "index_prizes_on_raffle_id", using: :btree
   end
 
   create_table "raffles", force: :cascade do |t|
@@ -87,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170430210714) do
 
   add_foreign_key "numbers", "raffles"
   add_foreign_key "numbers", "users"
+  add_foreign_key "prizes", "raffles"
   add_foreign_key "raffles", "users"
   add_foreign_key "reactions", "raffles"
   add_foreign_key "reactions", "reaction_representations"
