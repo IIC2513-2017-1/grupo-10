@@ -20,5 +20,19 @@
   <%= @user.username %>
 </p>
 
+<p>
+	<strong>Monto disponible:</strong>
+	$<%= @user.wallet.amount %>
+</p>
+
+<p>
+	<strong>Organizing raffles:</strong>
+	<ul>
+		<% @user.raffles.each do |raffle| %>
+			<li><%= raffle.title %></li>
+		<% end %>
+	</ul>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

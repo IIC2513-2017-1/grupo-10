@@ -24,7 +24,8 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+		wallet = Wallet.new(amount: 0)
+    @user = wallet.create_user user_params
 
     respond_to do |format|
       if @user.save
