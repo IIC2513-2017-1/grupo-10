@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Mail:</strong>
+  <%= @user.mail %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @user.password %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+	<strong>Monto disponible:</strong>
+	$<%= @user.wallet.amount %>
+</p>
+
+<p>
+	<strong>Organizing raffles:</strong>
+	<ul>
+		<% @user.raffles.each do |raffle| %>
+			<li><%= link_to raffle.title, raffle_path(raffle) %></li>
+		<% end %>
+	</ul>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

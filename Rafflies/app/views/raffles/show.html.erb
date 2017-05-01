@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+	<strong>Title:</strong>
+	<%= @raffle.title %>
+</p>
+
+<p>
+	<strong>Start date:</strong>
+	<%= @raffle.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @raffle.end_date %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @raffle.description %>
+</p>
+
+<p>
+	<strong>Organizator:</strong>
+	<%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %>
+</p>
+
+<p>
+	<strong>Price:</strong>
+	$<%= @raffle.price %>
+</p>
+
+<p>
+	<strong>Amount of Numbers:</strong>
+	<%= @raffle.numbers.count %> / <%= @raffle.number_amount %>
+</p>
+
+<p>
+	<strong>Participants:</strong>
+	<ul>
+		<% @raffle.numbers.each do |number| %>
+			<li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %>
+				<%= link_to 'Destroy', raffle_number_path(@raffle, number), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+</li>
+		<% end %>
+	</ul>
+</p>
+
+<%= link_to 'Buy Number', new_raffle_number_path(@raffle) %><br>
+
+<%= link_to 'Edit', edit_raffle_path(@raffle) %> |
+<%= link_to 'Back', raffles_path %>
