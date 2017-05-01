@@ -15,5 +15,29 @@
   <%= @raffle.description %>
 </p>
 
+<p>
+	<strong>Organizator:</strong>
+	<%= @raffle.organizator.name %>
+</p>
+
+<p>
+	<strong>Price:</strong>
+	$<%= @raffle.price %>
+</p>
+
+<p>
+	<strong>Amount of Numbers:</strong>
+	<%= @raffle.numbers.count %>
+</p>
+
+<p>
+	<strong>Participants:</strong>
+	<ul>
+		<% @raffle.participants.each do |participant| %>
+			<li><%= participant.name %></li>
+		<% end %>
+	</ul>
+</p>
+
 <%= link_to 'Edit', edit_raffle_path(@raffle) %> |
 <%= link_to 'Back', raffles_path %>

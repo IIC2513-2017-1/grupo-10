@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501011932) do
+ActiveRecord::Schema.define(version: 20170501014921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20170501011932) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "wallet_id"
+    t.integer  "role"
     t.index ["wallet_id"], name: "index_users_on_wallet_id", using: :btree
   end
 
