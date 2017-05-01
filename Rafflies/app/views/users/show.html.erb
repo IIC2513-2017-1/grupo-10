@@ -29,7 +29,7 @@
 	<strong>Organizing raffles:</strong>
 	<ul>
 		<% @user.raffles.each do |raffle| %>
-			<li><%= raffle.title %></li>
+			<li><%= link_to raffle.title, raffle_path(raffle) %></li>
 		<% end %>
 	</ul>
 </p>

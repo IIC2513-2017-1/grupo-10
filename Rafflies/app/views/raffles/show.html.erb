@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>End date:</strong>
-  <%= @raffle.end_date %>
+	<strong>Title:</strong>
+	<%= @raffle.title %>
 </p>
 
 <p>
-  <strong>Start date:</strong>
-  <%= @raffle.start_date %>
+	<strong>Start date:</strong>
+	<%= @raffle.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @raffle.end_date %>
 </p>
 
 <p>
@@ -17,7 +22,7 @@
 
 <p>
 	<strong>Organizator:</strong>
-	<%= @raffle.organizator.name %>
+	<%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %>
 </p>
 
 <p>
@@ -34,7 +39,7 @@
 	<strong>Participants:</strong>
 	<ul>
 		<% @raffle.participants.each do |participant| %>
-			<li><%= participant.name %></li>
+			<li><%= link_to participant.name, user_path(participant) %></li>
 		<% end %>
 	</ul>
 </p>
