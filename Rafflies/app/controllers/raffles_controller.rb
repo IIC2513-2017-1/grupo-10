@@ -20,6 +20,7 @@ class RafflesController < ApplicationController
 
   # GET /raffles/1/edit
   def edit
+		@users = User.all
   end
 
   # POST /raffles
@@ -70,9 +71,9 @@ class RafflesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def raffle_params
-      raffle_params = params.require(:raffle).permit(:end_date, :start_date, :description, :organizator, :title, :price)
-			organizator = User.find raffle_params[:organizator].to_i
-			raffle_params[:organizator] = organizator
-			raffle_params
+      raffle_param = params.require(:raffle).permit(:end_date, :start_date, :description, :organizator, :title, :price, :number_amount)
+			organizator = User.find raffle_param[:organizator].to_i
+			raffle_param[:organizator] = organizator
+			raffle_param
     end
 end
