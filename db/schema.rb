@@ -39,19 +39,20 @@ ActiveRecord::Schema.define(version: 20170501014921) do
     t.datetime "end_date"
     t.datetime "start_date"
     t.string   "description"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "organizator_id"
     t.string   "title"
     t.integer  "price"
     t.integer  "number_amount"
-    t.index ["user_id"], name: "index_raffles_on_user_id", using: :btree
+    t.index ["organizator_id"], name: "index_raffles_on_organizator_id", using: :btree
   end
 
   create_table "reaction_representations", force: :cascade do |t|
     t.string   "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "reactions", force: :cascade do |t|
@@ -82,9 +83,7 @@ ActiveRecord::Schema.define(version: 20170501014921) do
     t.string   "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "wallet_id"
     t.integer  "role"
-    t.index ["wallet_id"], name: "index_users_on_wallet_id", using: :btree
   end
 
   create_table "wallets", force: :cascade do |t|
@@ -98,10 +97,8 @@ ActiveRecord::Schema.define(version: 20170501014921) do
   add_foreign_key "numbers", "raffles"
   add_foreign_key "numbers", "users"
   add_foreign_key "prizes", "raffles"
-  add_foreign_key "raffles", "users"
   add_foreign_key "reactions", "raffles"
   add_foreign_key "reactions", "reaction_representations"
   add_foreign_key "reactions", "users"
-  add_foreign_key "users", "wallets"
   add_foreign_key "wallets", "users"
 end
