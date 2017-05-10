@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501014921) do
+ActiveRecord::Schema.define(version: 20170510021239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170501014921) do
     t.string   "title"
     t.integer  "price"
     t.integer  "number_amount"
+    t.boolean  "private"
     t.index ["organizator_id"], name: "index_raffles_on_organizator_id", using: :btree
   end
 
