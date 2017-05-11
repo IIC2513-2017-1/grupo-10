@@ -1,0 +1,20 @@
+AllCops:
+  AutoCorrect: false
+  DefaultFormatter: simple
+  DisplayCopNames: true
+  ExtraDetails: true
+  Severity: error
+  TargetRailsVersion: 5.0
+  TargetRubyVersion: 2.4.0
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+
+###### COPS #####
+Style/Documentation:
+  Enabled: false
