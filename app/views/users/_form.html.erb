@@ -11,24 +11,29 @@
     </div>
   <% end %>
 
-	<div class="field">
-		<%= f.label :name %>
-		<%= f.text_field :name %>
-	</div>
-	
-	<div class="field">
-		<%= f.label :username %>
-		<%= f.text_field :username %>
-	</div>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, required: true, pattern: ".{3,60}", autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :username %>
+    <%= f.text_field :username, required: true, pattern: ".{2,40}" %>
+  </div>
 
   <div class="field">
     <%= f.label :mail %>
-    <%= f.email_field :mail %>
+    <%= f.email_field :mail, required: true %>
   </div>
 
   <div class="field">
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, required: true, pattern: ".{6,}" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, required: true, pattern: ".{6,}"  %>
   </div>
 
   <div class="actions">
