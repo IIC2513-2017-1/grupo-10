@@ -26,7 +26,6 @@ class UsersController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def create
     @user = User.new user_params
-    @user.create_wallet amount: 0
 
     respond_to do |format|
       if @user.save
@@ -84,6 +83,7 @@ class UsersController < ApplicationController
       :password_confirmation
     )
     user_params[:role] = :user
+    user_params[:amount] = 0
     user_params
   end
 end

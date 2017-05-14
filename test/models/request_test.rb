@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class WalletTest < ActiveSupport::TestCase
+class RequestTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+class CustomUserValidator < ActiveModel::Validator
+  def validate(record)
+    # Amount cant be negative
+    return unless record.amount.negative?
+    record.errors[:amount].push("Amount can't be negative")
+  end
+end
+
 class User < ApplicationRecord
   enum role: %i[user admin]
 
@@ -7,7 +15,7 @@ class User < ApplicationRecord
   has_many :raffle_participating, through: :numbers, source: :raffle
   has_many :raffles, foreign_key: 'organizator_id', dependent: :destroy
   has_many :reactions, dependent: :destroy
-  has_one :wallet, dependent: :destroy
+  has_many :requests, dependent: :destroy
 
   validates :mail,
             presence: true,
@@ -32,4 +40,9 @@ class User < ApplicationRecord
             presence: true,
             inclusion: { in: roles.keys },
             exclusion: { in: [nil] }
+  validates :amount,
+            presence: true,
+            numericality: true,
+            exclusion: { in: [nil] }
+  validates_with CustomUserValidator
 end
