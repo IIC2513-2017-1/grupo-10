@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def new
+    redirect_to user_path current_user if session[:user_id].present?
   end
 
   def create
@@ -9,7 +12,8 @@ class SessionsController < ApplicationController
       redirect_to user_path(user), notice: 'Successful login'
     else
       session[:user_id] = nil
-      redirect_to login_path, flash: { error: 'Username or password is incorrect' }
+      redirect_to login_path,
+                  flash: { error: 'Username or password is incorrect' }
     end
   end
 
