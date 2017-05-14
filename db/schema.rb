@@ -15,53 +15,53 @@ ActiveRecord::Schema.define(version: 20170514181757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "numbers", force: :cascade do |t|
-    t.integer "number_in_raffle"
+  create_table "numbers", id: :serial, force: :cascade do |t|
+    t.integer "number_in_raffle", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "raffle_id"
+    t.integer "user_id", null: false
+    t.integer "raffle_id", null: false
     t.index ["raffle_id"], name: "index_numbers_on_raffle_id"
     t.index ["user_id"], name: "index_numbers_on_user_id"
   end
 
-  create_table "prizes", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.string "image"
+  create_table "prizes", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.string "image", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "raffle_id"
+    t.integer "raffle_id", null: false
     t.index ["raffle_id"], name: "index_prizes_on_raffle_id"
   end
 
-  create_table "raffles", force: :cascade do |t|
-    t.datetime "end_date"
-    t.datetime "start_date"
-    t.string "description"
+  create_table "raffles", id: :serial, force: :cascade do |t|
+    t.datetime "end_date", null: false
+    t.datetime "start_date", null: false
+    t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "organizator_id"
-    t.string "title"
-    t.integer "price"
-    t.integer "number_amount"
-    t.boolean "private"
+    t.integer "organizator_id", null: false
+    t.string "title", null: false
+    t.integer "price", null: false
+    t.integer "number_amount", null: false
+    t.boolean "private", null: false
     t.index ["organizator_id"], name: "index_raffles_on_organizator_id"
   end
 
-  create_table "reaction_representations", force: :cascade do |t|
-    t.string "image"
-    t.string "description"
+  create_table "reaction_representations", id: :serial, force: :cascade do |t|
+    t.string "image", null: false
+    t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "reactions", force: :cascade do |t|
+  create_table "reactions", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "raffle_id"
-    t.integer "reaction_representation_id"
+    t.integer "user_id", null: false
+    t.integer "raffle_id", null: false
+    t.integer "reaction_representation_id", null: false
     t.index ["raffle_id"], name: "index_reactions_on_raffle_id"
     t.index ["reaction_representation_id"], name: "index_reactions_on_reaction_representation_id"
     t.index ["user_id"], name: "index_reactions_on_user_id"
@@ -69,30 +69,30 @@ ActiveRecord::Schema.define(version: 20170514181757) do
 
   create_table "requests", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "amount"
-    t.boolean "approved"
+    t.integer "amount", null: false
+    t.boolean "approved", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.integer "amount"
+  create_table "transactions", id: :serial, force: :cascade do |t|
+    t.integer "amount", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "from_user_id"
-    t.integer "to_user_id"
+    t.integer "from_user_id", null: false
+    t.integer "to_user_id", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "mail"
-    t.string "name"
-    t.string "password"
-    t.string "username"
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "mail", null: false
+    t.string "name", null: false
+    t.string "password", null: false
+    t.string "username", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
-    t.integer "amount"
+    t.integer "role", null: false
+    t.integer "amount", null: false
   end
 
   add_foreign_key "numbers", "raffles"
