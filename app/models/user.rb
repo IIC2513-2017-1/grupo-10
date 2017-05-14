@@ -11,17 +11,18 @@ class User < ApplicationRecord
 
   validates :mail,
             presence: true,
-            uniqueness: { case_sensitive: false },
-            exclusion: { in: [nil] }
+            uniqueness: true,
+            allow_black: false,
+            format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :name,
             presence: true,
             length: { in: 2..60 },
             exclusion: { in: [nil] }
   validates :password,
             presence: true,
-            length: { in: 6..40 },
+            length: { minimum: 6 },
             confirmation: true,
-            exclusion: { in: [nil] }
+            allow_blank: false
   validates :username,
             presence: true,
             uniqueness: { case_sensitive: false },
