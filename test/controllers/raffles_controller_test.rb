@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RafflesControllerTest < ActionDispatch::IntegrationTest
@@ -5,40 +7,50 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
     @raffle = raffles(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get raffles_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_raffle_url
     assert_response :success
   end
 
-  test "should create raffle" do
+  test 'should create raffle' do
     assert_difference('Raffle.count') do
-      post raffles_url, params: { raffle: { description: @raffle.description, end_date: @raffle.end_date, start_date: @raffle.start_date } }
+      post raffles_url, params: { raffle: {
+        description: @raffle.description,
+        end_date: @raffle.end_date,
+        start_date: @raffle.start_date
+      } }
     end
 
     assert_redirected_to raffle_url(Raffle.last)
   end
 
-  test "should show raffle" do
+  test 'should show raffle' do
     get raffle_url(@raffle)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_raffle_url(@raffle)
     assert_response :success
   end
 
-  test "should update raffle" do
-    patch raffle_url(@raffle), params: { raffle: { description: @raffle.description, end_date: @raffle.end_date, start_date: @raffle.start_date } }
+  test 'should update raffle' do
+    patch raffle_url(@raffle), params: {
+      raffle: {
+        description: @raffle.description,
+        end_date: @raffle.end_date,
+        start_date: @raffle.start_date
+      }
+    }
     assert_redirected_to raffle_url(@raffle)
   end
 
-  test "should destroy raffle" do
+  test 'should destroy raffle' do
     assert_difference('Raffle.count', -1) do
       delete raffle_url(@raffle)
     end

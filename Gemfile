@@ -1,53 +1,52 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.2'
-# Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+# Full-stack web framework. Read more: https://github.com/rails/rails
+gem('rails', '~> 5.1')
+# Ruby interface to PostgreSQL. Read more: https://rubygems.org/gems/pg
+gem('pg', '~> 0.20.0')
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
-# gem 'coffee-rails', '~> 4.2'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem('puma', '~> 3.8', '>= 3.8.2')
+# Sass adapter for Rails assets. Read more: https://github.com/rails/sass-rails
+gem 'sass-rails', '~> 5.0', '>= 5.0.4'
+# JavaScript assets compressor. Read more: https://github.com/lautis/uglifier
+gem('uglifier', '~> 3.2')
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# Jquery as the library. Read more: https://github.com/rails/jquery-rails
+gem('jquery-rails', '~> 4.3', '>= 4.3.1')
+# Faster apps. Read more: https://github.com/turbolinks/turbolinks
+gem('turbolinks', '~> 5.0', '>= 5.0.1')
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem('jbuilder', '~> 2.6', '>= 2.6.3')
+# Safe password handling. Read more: https://github.com/codahale/bcrypt-ruby
+gem('bcrypt', '~> 3.1', '>= 3.1.11', platform: :ruby)
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  # Debugger console. Read more: https://github.com/deivid-rodriguez/byebug
+  gem('byebug', '~> 9.0', '>= 9.0.6', platform: :mri)
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # Listen to file modifications. Read more: https://github.com/guard/listen
+  gem('listen', '~> 3.1', '>= 3.1.5')
+  # Rails console in browser. Read more: https://github.com/rails/web-console
+  gem('web-console', '~> 3.5')
+  # Preload app. Read more: https://github.com/rails/spring
+  gem('spring', '~> 2.0', '>= 2.0.1')
+  # Read more: https://github.com/jonleighton/spring-watcher-listen
+  gem('spring-watcher-listen', '~> 2.0', '>= 2.0.1')
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# Zoneinfo files in Windows. Read more: https://github.com/tzinfo/tzinfo-data
+gem(
+  'tzinfo-data',
+  '~> 1.2017',
+  '>= 1.2017.2',
+  platforms: %i[mingw mswin x64_mingw jruby]
+)
