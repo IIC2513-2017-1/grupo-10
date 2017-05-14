@@ -9,6 +9,8 @@ class CustomUserValidator < ActiveModel::Validator
 end
 
 class User < ApplicationRecord
+  has_secure_password
+
   enum role: %i[user admin]
 
   has_many :numbers, dependent: :destroy
