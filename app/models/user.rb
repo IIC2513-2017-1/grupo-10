@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :raffle_participating, through: :numbers, source: :raffle
   has_many :raffles, foreign_key: 'organizator_id', dependent: :destroy
   has_many :reactions, dependent: :destroy
+  has_many :requests, dependent: :destroy
 
   validates :mail,
             presence: true,
