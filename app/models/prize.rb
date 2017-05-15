@@ -15,5 +15,4 @@ class Prize < ApplicationRecord
   validates :raffle,
             presence: true,
             exclusion: { in: [nil] }
-  validates_associated :raffle
 end
