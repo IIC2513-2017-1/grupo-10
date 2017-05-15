@@ -25,7 +25,6 @@ class Request < ApplicationRecord
             presence: true,
             numericality: true,
             exclusion: { in: [nil] }
-  validates_associated :user
   validates_with CustomRequestValidator
   validates_with ApprovedFalseValidator, on: :create
 end
