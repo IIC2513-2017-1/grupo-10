@@ -11,8 +11,6 @@
     </div>
   <% end %>
 
-  <%= @user.name %> your current credit is: <%= @user.amount %>
-
   <div class="field">
     <%= f.label :amount %>
     <%= f.number_field :amount, min: 1 %>

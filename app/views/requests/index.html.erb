@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Create deposit', new_user_request_path(@user) %>
-
 <p><b>Your current amount:</b><%= @user.amount %></p>
 
 <h1>Requests waiting for approval</h1>
@@ -52,5 +50,6 @@
 
 <br>
 
-<%= link_to 'New Request', new_user_request_path %> |
+<%= render 'form', request: @request, user: @user %>
+
 <%= link_to 'Back', user_path(@user) %>
