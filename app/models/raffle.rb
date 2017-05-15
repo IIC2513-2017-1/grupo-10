@@ -49,7 +49,6 @@ class Raffle < ApplicationRecord
             numericality: true,
             exclusion: { in: [nil] }
   validates :private,
-            presence: true,
             inclusion: { in: [true, false] }
   validates_with CustomRaffleValidator
 end
