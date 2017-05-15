@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Create deposit', new_user_request_path(@user) %>
+
+<p><b>Your current amount:</b><%= @user.amount %></p>
+
+<h1>Requests waiting for approval</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Created at</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+      <% unless request.approved %>
+        <tr>
+          <td><%= request.created_at %></td>
+          <td><%= request.amount %></td>
+          <td><%= link_to 'Show', user_request_path(@user, request) %></td>
+          <td><%= link_to 'Destroy', user_request_path(@user, request), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<h1>Approved Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Created at</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+      <% if request.approved %>
+        <tr>
+          <td><%= request.created_at %></td>
+          <td><%= request.amount %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Request', new_user_request_path %> |
+<%= link_to 'Back', user_path(@user) %>
