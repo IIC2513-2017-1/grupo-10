@@ -1,13 +1,19 @@
 <p id="notice"><%= notice %></p>
+<p><%= flash[:error] %></p>
+
+<p><strong>Prizes:</strong></p>
+<ul>
+<%= render @raffle.prizes %>
+</ul>
 
 <p>
-	<strong>Title:</strong>
-	<%= @raffle.title %>
+  <strong>Title:</strong>
+  <%= @raffle.title %>
 </p>
 
 <p>
-	<strong>Start date:</strong>
-	<%= @raffle.start_date %>
+  <strong>Start date:</strong>
+  <%= @raffle.start_date %>
 </p>
 
 <p>
@@ -21,30 +27,36 @@
 </p>
 
 <p>
-	<strong>Organizator:</strong>
-	<%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %>
+  <strong>Organizator:</strong>
+  <%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %>
 </p>
 
 <p>
-	<strong>Price:</strong>
-	$<%= @raffle.price %>
+  <strong>Price:</strong>
+  $<%= @raffle.price %>
 </p>
 
 <p>
-	<strong>Amount of Numbers:</strong>
-	<%= @raffle.numbers.count %> / <%= @raffle.number_amount %>
+  <strong>Amount of Numbers:</strong>
+  <%= @raffle.numbers.count %> / <%= @raffle.number_amount %>
 </p>
 
 <p>
-	<strong>Participants:</strong>
-	<ul>
-		<% @raffle.numbers.each do |number| %>
-			<li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %>
-				<%= link_to 'Destroy', raffle_number_path(@raffle, number), method: :delete, data: { confirm: 'Are you sure?' } %></li>
-</li>
-		<% end %>
-	</ul>
+  <strong>Participants:</strong>
+  <ul>
+  <% @raffle.numbers.each do |number| %>
+    <li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %>
+      <%= link_to 'Destroy', raffle_number_path(@raffle, number), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  <% end %>
+  </ul>
 </p>
+
+<% if current_user && current_user.id == @raffle.organizator.id %>
+<h2>Add a prize:</h2>
+<%= render "prizes/form" %>
+<% end %>
+
+<br/>
 
 <%= link_to 'Buy Number', new_raffle_number_path(@raffle) %><br>
 

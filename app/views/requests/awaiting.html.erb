@@ -1,0 +1,17 @@
+<p><%= notice %></p>
+
+<h1>Awaiting requests</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Amount</th>
+  </tr>
+  <% @requests.each do |request| %>
+    <td><%= request.user.name %></td>
+    <td><%= request.amount %></td>
+    <td><%= link_to 'Approve', approve_path(request), method: :patch %></td>
+  <% end %>
+</table>
+
+<%= link_to 'Back', user_path(current_user) %>

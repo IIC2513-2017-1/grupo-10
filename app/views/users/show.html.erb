@@ -11,28 +11,28 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
-
-<p>
   <strong>Username:</strong>
   <%= @user.username %>
 </p>
 
 <p>
-	<strong>Monto disponible:</strong>
-	$<%= @user.wallet.amount %>
+  <strong>Amount available:</strong>
+  $<%= @user.amount %>
 </p>
 
 <p>
-	<strong>Organizing raffles:</strong>
-	<ul>
-		<% @user.raffles.each do |raffle| %>
-			<li><%= link_to raffle.title, raffle_path(raffle) %></li>
-		<% end %>
-	</ul>
+  <strong>Organizing raffles:</strong>
+  <ul>
+    <% @user.raffles.each do |raffle| %>
+      <li><%= link_to raffle.title, raffle_path(raffle) %></li>
+    <% end %>
+  </ul>
 </p>
 
+<% if @user.admin? %>
+  <%= link_to 'Awaiting requests', requests_path %> |
+<% end %>
+
+<%= link_to 'Deposit', user_requests_path(@user) %> |
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
