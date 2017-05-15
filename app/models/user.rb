@@ -32,7 +32,8 @@ class User < ApplicationRecord
             presence: true,
             length: { minimum: 6 },
             confirmation: true,
-            allow_blank: false
+            allow_blank: false,
+            on: :create
   validates :username,
             presence: true,
             uniqueness: { case_sensitive: false },
