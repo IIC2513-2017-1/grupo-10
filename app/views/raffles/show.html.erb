@@ -52,13 +52,10 @@
 </p>
 
 <% if current_user && current_user.id == @raffle.organizator.id %>
-<h2>Add a prize:</h2>
-<%= render "prizes/form" %>
+  <h2>Add a prize:</h2>
+  <%= render "prizes/form" %>
 <% end %>
 
 <br/>
 
-<%= link_to 'Buy Number', new_raffle_number_path(@raffle) %><br>
-
-<%= link_to 'Edit', edit_raffle_path(@raffle) %> |
-<%= link_to 'Back', raffles_path %>
+<%= render 'options', raffle: @raffle %>
