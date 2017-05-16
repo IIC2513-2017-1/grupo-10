@@ -1,0 +1,33 @@
+<% unless requests.blank? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Created at</th>
+        <% if approved %>
+          <td>Approved at</td>
+        <% end %>
+        <th>Amount</th>
+      </thead>
+      </tr>
+    <tbody>
+      <% requests.each do |request| %>
+          <tr>
+            <td><%= request.created_at %></td>
+            <% if approved %>
+              <td><%= request.updated_at %></td>
+            <% end %>
+            <td><%= request.amount %></td>
+            <% unless approved %>
+              <td><%= link_to 'Destroy', user_request_path(@user, request), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <% if %>
+    <p>There aren't pending requests.</p>
+  <% else %>
+    <p>There aren't approved requests.</p>
+  <% end %>
+<% end %>
