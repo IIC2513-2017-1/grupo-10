@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 	resources :numbers, only: [:new, :create, :destroy]
   end
 
+  get '/sign-up', to: 'users#new', as: :sign_up
   resources :users do
     resources :requests
   end

@@ -1,0 +1,13 @@
+<% if current_user %>
+  <%= link_to 'Buy Number', new_raffle_number_path(raffle) %> |
+<% end %>
+
+<% if current_user == raffle.organizator %>
+  <%= link_to 'Edit', edit_raffle_path(raffle) %> |
+<% end %>
+
+<% if current_user&.admin? %>
+  <!-- Pinned link -->
+<% end %>
+
+<%= link_to 'Back', raffles_path %>

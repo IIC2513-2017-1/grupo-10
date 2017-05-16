@@ -4,49 +4,11 @@
 
 <h1>Requests waiting for approval</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Created at</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @requests.each do |request| %>
-      <% unless request.approved %>
-        <tr>
-          <td><%= request.created_at %></td>
-          <td><%= request.amount %></td>
-          <td><%= link_to 'Show', user_request_path(@user, request) %></td>
-          <td><%= link_to 'Destroy', user_request_path(@user, request), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'table', requests: @requests.where(approved: false), user: @user, approved: false %>
 
 <h1>Approved Requests</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Created at</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @requests.each do |request| %>
-      <% if request.approved %>
-        <tr>
-          <td><%= request.created_at %></td>
-          <td><%= request.amount %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'table', requests: @requests.where(approved: true), user: @user, approved: true %>
 
 <br>
 
