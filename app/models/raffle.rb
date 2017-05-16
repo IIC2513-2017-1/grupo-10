@@ -11,7 +11,7 @@ class CustomRaffleValidator < ActiveModel::Validator
       record.errors[:start_date].push("Raffle can't start in the past")
     end
     # At least one day of duration
-    return if record.end_date - record.start_date > 1.day
+    return if record.end_date - record.start_date >= 1.day
     record.errors[:start_date].push('Raffle duration should at least be 1 day')
     record.errors[:end_date].push('Raffle duration should at least be 1 day')
   end

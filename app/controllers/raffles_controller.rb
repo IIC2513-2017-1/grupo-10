@@ -90,11 +90,10 @@ class RafflesController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def raffle_params
     raffle_param = params.require(:raffle).permit(
-      :description, :organizator, :title,
+      :description, :title,
       :price, :number_amount, :private
     )
-    organizator = User.find raffle_param[:organizator].to_i
-    raffle_param[:organizator] = organizator
+    raffle_param[:organizator] = current_user
     raffle_param[:start_date] = DateTime.parse(
       "#{params[:start_date]} #{params[:start_time]}"
     )
