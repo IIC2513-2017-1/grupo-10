@@ -11,11 +11,17 @@ module Seller
     true
   end
 
+  def user_has_money?(raffle, numbers)
+    current_user.amount >= (numbers.size * raffle.price)
+  end
+
   def sell(raffle, numbers)
-    if valid_number_set(raffle, numbers)
+    if valid_number_set(raffle, numbers) && user_has_money?(raffle, numbers)
       numbers.each do |number|
         raffle.numbers.create(number_params(raffle, number))
       end
+      current_user.amount -= numbers.size * raffle.price
+      current_user.save
       true
     else
       false
