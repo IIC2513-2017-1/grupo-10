@@ -9,14 +9,14 @@ class CustomNumberValidator < ActiveModel::Validator
       )
     end
     # Number is unique in raffle
-    return if find_dupes(record.number_in_raffle).blank?
+    return if find_dupes(record).blank?
     record.errors[:number_in_raffle].push('Number is already taken')
   end
 
   private
 
-  def find_dupes(number)
-    record.raffle.numbers.find_by(number_in_raffle: number)
+  def find_dupes(record)
+    record.raffle.numbers.find_by(number_in_raffle: record.number_in_raffle)
   end
 end
 
