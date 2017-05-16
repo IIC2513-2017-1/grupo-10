@@ -1,0 +1,14 @@
+<%= form_tag(raffle_numbers_path(raffle)) do %>
+  <% (raffle.number_amount / 10).times do |n| %>
+    <div class="field">
+      <% 10.times do |i| %>
+          <%= check_box_tag 'numbers[]',
+                            n * 10 + i + 1,
+                            false,
+                            { disabled: (sold_numbers.include?(n * 10 + i + 1)) } %>
+                            <%= n * 10 + i + 1 %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= submit_tag 'Buy numbers' %>
+<% end %>
