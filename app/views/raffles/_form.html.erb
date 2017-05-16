@@ -19,27 +19,18 @@
   <div class="field">
     <%= f.label :start_date %>
     <%= date_field_tag :start_date, Date.today, min: Date.today, required: true %>
-    <%= time_field_tag :start_time, Time.now.strftime("%H:%M"), required: true %>
+    <%= time_field_tag :start_time, (Time.now + 1.hour).strftime("%H:%M"), required: true %>
   </div>
 
   <div class="field">
     <%= f.label :end_date %>
     <%= date_field_tag :end_date, Date.tomorrow, min: Date.tomorrow, required: true %>
-    <%= time_field_tag :end_time, Time.now.strftime("%H:%M"), required: true %>
+    <%= time_field_tag :end_time, (Time.now + 1.day + 1.hour).strftime("%H:%M"), required: true %>
   </div>
 
   <div class="field">
     <%= f.label :description %>
     <%= f.text_area :description, size: "24x6", required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :organizator %>
-    <%= f.select :organizator do %>
-      <% @users.each do |user| -%>
-        <%= content_tag(:option, user.name, value: user.id) %>
-      <% end %>
-    <% end %>
   </div>
 
   <div class="field">
