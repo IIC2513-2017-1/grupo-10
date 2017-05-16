@@ -51,5 +51,5 @@ class Raffle < ApplicationRecord
   validates :private,
             inclusion: { in: [true, false] }
   validates_with CustomRaffleValidator,
-            on: :create
+                 on: :create
 end
