@@ -31,8 +31,7 @@
     <strong>Participants:</strong>
     <ul>
         <% @raffle.numbers.each do |number| %>
-        <li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %>
-        <%= link_to 'Destroy', raffle_number_path(@raffle, number), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %></li>
         <% end %>
     </ul>
 <% else %>

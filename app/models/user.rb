@@ -18,6 +18,14 @@ class User < ApplicationRecord
   has_many :raffles, foreign_key: 'organizator_id', dependent: :destroy
   has_many :reactions, dependent: :destroy
   has_many :requests, dependent: :destroy
+  has_many  :made_transactions,
+            foreign_key: 'from_user',
+            class_name: 'Transaction',
+            dependent: :destroy
+  has_many  :received_transactions,
+            foreign_key: 'to_user',
+            class_name: 'Transaction',
+            dependent: :destroy
 
   validates :mail,
             presence: true,
