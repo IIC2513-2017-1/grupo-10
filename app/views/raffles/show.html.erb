@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
+<p><%= alert %></p>
 <p><%= flash[:error] %></p>
-
 
 <h1><%= @raffle.title %></h1>
 <h3>$ <%= @raffle.price %> per number</h3>
@@ -39,10 +39,13 @@
 <p><strong>Be the first to buy!</strong></p>
 <% end %>
 
-
 <% if current_user && current_user.id == @raffle.organizator.id %>
 <h2>You can add a prize if you want:</h2>
 <%= render "prizes/form" %>
 <% end %>
-<br/>
+
+<% if current_user && current_user != @raffle.organizator %>
+  <%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
+<% end %>
+
 <%= render 'options', raffle: @raffle %>

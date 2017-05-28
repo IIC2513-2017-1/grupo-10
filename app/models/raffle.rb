@@ -23,6 +23,7 @@ class Raffle < ApplicationRecord
   has_many :participants, through: :numbers, source: :user
   has_many :reactions, dependent: :destroy
   has_many :prizes, dependent: :destroy
+  has_many :transactions, dependent: :destroy
 
   validates :end_date,
             presence: true,
@@ -50,5 +51,6 @@ class Raffle < ApplicationRecord
             exclusion: { in: [nil] }
   validates :private,
             inclusion: { in: [true, false] }
-  validates_with CustomRaffleValidator
+  validates_with CustomRaffleValidator,
+                 on: :create
 end

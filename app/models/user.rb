@@ -48,4 +48,14 @@ class User < ApplicationRecord
             numericality: true,
             exclusion: { in: [nil] }
   validates_with CustomUserValidator
+
+  def withdraw(amount)
+    self.amount -= amount
+    save
+  end
+
+  def deposit(amount)
+    self.amount += amount
+    save
+  end
 end

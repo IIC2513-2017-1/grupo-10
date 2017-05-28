@@ -11,7 +11,9 @@ class RafflesController < ApplicationController
 
   # GET /raffles/1
   # GET /raffles/1.json
-  def show; end
+  def show
+    @total_money = @raffle.transactions.map(&:amount).reduce(:+)
+  end
 
   # GET /raffles/new
   def new
