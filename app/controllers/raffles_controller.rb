@@ -89,7 +89,6 @@ class RafflesController < ApplicationController
 
   # Never trust parameters from the scary internet,
   # only allow the white list through.
-  # rubocop:disable Metrics/AbcSize
   def raffle_params
     raffle_param = params.require(:raffle).permit(
       :description, :title,

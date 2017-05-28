@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Rafflies</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <% if current_user %>
-      <%= link_to current_user.name, current_user %> |
-      <%= link_to 'Logout', logout_path, method: :delete %><br>
-    <% else %>
-      <%= link_to 'Login', login_path %>
-      <%= link_to 'Sign up', sign_up_path %>
-    <% end %>
-    <%= yield %>
-  </body>
+<html lang="en">
+    <head>
+        <%= render "layouts/head" %>
+    </head>
+    <body>
+        <%= render "layouts/header" %>
+        <main>
+            <%= yield %>
+        </main>
+        <!--<%= render "layouts/footer" %>-->
+    </body>
 </html>

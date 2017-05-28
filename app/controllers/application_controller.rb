@@ -3,7 +3,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_action :set_time
   helper_method :current_user
+
+  def set_time
+    @time = Time.now
+  end
 
   private
 
