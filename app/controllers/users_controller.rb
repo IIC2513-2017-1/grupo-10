@@ -26,9 +26,9 @@ class UsersController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def create
     @user = User.new user_params
-
     respond_to do |format|
       if @user.save
+        UserMailer.welcome_mail(@user).deliver_later
         format.html do
           redirect_to @user, notice: 'User was successfully created.'
         end

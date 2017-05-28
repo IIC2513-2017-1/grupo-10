@@ -88,6 +88,7 @@ class RequestsController < ApplicationController
     @request.approved = true
     @request.user.amount += @request.amount
     if @request.save && @request.user.save
+      UserMailer.request_approved(@request).deliver_later
       redirect_to requests_path
     else
       redirect_to requests_path, notice: 'Couldn\'t approve request.'
