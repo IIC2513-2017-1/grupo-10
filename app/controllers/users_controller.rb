@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :logged_in?, only: %i[transactions]
 
   # GET /users
   # GET /users.json
@@ -20,6 +21,11 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit; end
+
+  def transactions
+    @made_transactions = Transaction.where from_user: current_user
+    @received_transactions = Transaction.where to_user: current_user
+  end
 
   # POST /users
   # POST /users.json

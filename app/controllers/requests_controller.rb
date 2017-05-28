@@ -8,6 +8,7 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
+    redirect_to @user unless current_user == @user
     @requests = @user.requests
     @request = Request.new
   end
@@ -80,6 +81,7 @@ class RequestsController < ApplicationController
   end
 
   def awaiting
+    redirect_to current_user unless current_user&.admin?
     @requests = Request.where(approved: false)
   end
 
