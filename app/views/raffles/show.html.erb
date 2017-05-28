@@ -60,15 +60,13 @@
 </p>
 
 <% if current_user && current_user.id == @raffle.organizator.id %>
-<h2>Add a prize:</h2>
-<%= render "prizes/form" %>
+  <h2>Add a prize:</h2>
+  <%= render "prizes/form" %>
 <% end %>
 
 <% if current_user && current_user != @raffle.organizator %>
   <%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
 <% end %>
 
-<br/>
 
-<%= link_to 'Edit', edit_raffle_path(@raffle) %> |
-<%= link_to 'Back', raffles_path %>
+<%= render 'options', raffle: @raffle %>
