@@ -1,36 +1,43 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Mail:</strong>
-  <%= @user.mail %>
-</p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<h1><%= @user.username %></h1>
+<table style="width:80%; margin: 0 auto;">
+    <tr>
+        <td><img src="http://santetotal.com/wp-content/uploads/2014/05/default-user.png" width="auto" height="150" /></td>
+        <td>
+            <ul>
+                <li><%= @user.name %></li>
+                <li><%= @user.mail %></li>
+                <li>$ <%= @user.amount %></li>
+                <li>Rifas Organizadas: <%= @user.raffles.length %></li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <%= render 'options', user: @user %>
+    </tr>
+</table>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Amount available:</strong>
-  $<%= @user.amount %>
-</p>
-
-<p>
-  <strong>Organizing raffles:</strong>
-  <ul>
-    <% @user.raffles.each do |raffle| %>
-      <li><%= link_to raffle.title, raffle_path(raffle) %>
-        <% if current_user && current_user == @user %>
-          | <%= link_to 'Delete', raffle, method: :delete, data: { confirm: 'Are you sure?' } %>
+<h2>Rifas organizadas</h2>
+<% if @user.raffles.any? %>
+<table class="active-raffles-container" style="width:100%; margin: 0 auto;">
+    <tr>
+        <% @user.raffles.each do |raffle| %>
+        <td class="user-active-raffle">
+            <ul>
+                <li><%= link_to raffle.title, raffle_path(raffle) %></li>
+                <li><%= raffle.number_amount - raffle.numbers.count %> left!</strong> (of <%= raffle.number_amount %>)</li>
+                <li>Raffle ends in <%= distance_of_time_in_words(@time, raffle.end_date) %></li>
+                <li>Number display</li>
+                <% if current_user && current_user == @user %>
+                <%= link_to 'Delete', raffle, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% end %>
+            </ul>
+        </td>
         <% end %>
-      </li>
-    <% end %>
-  </ul>
-</p>
-
-<%= render 'options', user: @user %>
+    </tr>
+</table>
+<% else %>
+<h3>El usuario no tiene rifas activas</h3>
+<% end %>

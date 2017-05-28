@@ -1,3 +1,61 @@
 // Place all the styles related to the Raffles controller here.
 // They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// You can use Sass (SCSS) here:http://sass-lang.com/
+
+.raffle-item {
+	margin-top: 50px;
+	background-color: #E14658;
+	color: #fff;
+	padding: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+	p {
+		margin: 0;
+	}
+
+	a {
+		color: white;
+		text-decoration: underline;
+	}
+
+	a:hover,
+	a:visited {
+		color: white;
+		background-color: inherit;
+	}
+
+	.raffle-item-header {
+		border-bottom: 1px solid white;
+
+		p {
+			text-align: right;
+
+			span {
+				font-size: 15px;
+			}
+
+		}
+
+		h3 {
+			margin: 0;
+		}
+
+	}
+
+	.raffle-item-body {
+		h4 {
+			margin-bottom: 0;
+		}
+
+		ul {
+			margin: 0;
+		}
+
+		p {
+			margin-top: 10px;
+		}
+
+	}
+
+}

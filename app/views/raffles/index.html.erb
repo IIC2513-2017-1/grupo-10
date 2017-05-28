@@ -1,28 +1,24 @@
 <p id="notice"><%= notice %></p>
+<% @title = "Raffles index" %>
 
-<h1>Raffles</h1>
+<h1>Explore Rafflies</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @raffles.each do |raffle| %>
+<div class="raffle-item">
+    <div class="raffle-item-header">
+        <h3><%= link_to raffle.title, raffle %></h3>
+        <p><span>$ <%= raffle.price %></span></p>
+    </div>
 
-  <tbody>
-    <% @raffles.each do |raffle| %>
-      <tr>
-        <td><%= link_to raffle.title, raffle %></td>
-        <td><%= raffle.start_date %></td>
-        <td><%= raffle.end_date %></td>
-        <td><%= raffle.description %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+    <div class="raffle-item-body">
+        <p><%= raffle.description %></p>
+        <% if raffle.prizes.any? %>
+        <h4>Prizes:</h4>
+        <ul>
+        <%= render raffle.prizes %>
+        </ul>
+        <% end %>
+        <p><strong>Raffle ends in <%= distance_of_time_in_words(@time, raffle.end_date) %></strong></p>
+    </div>
+</div>
+<% end %>
