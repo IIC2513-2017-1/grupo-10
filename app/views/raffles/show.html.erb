@@ -1,61 +1,48 @@
 <p id="notice"><%= notice %></p>
 <p><%= flash[:error] %></p>
 
-<p><strong>Prizes:</strong></p>
-<ul>
-<%= render @raffle.prizes %>
-</ul>
 
-<p>
-  <strong>Title:</strong>
-  <%= @raffle.title %>
-</p>
+<h1><%= @raffle.title %></h1>
+<h3>$ <%= @raffle.price %> per number</h3>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @raffle.start_date %>
-</p>
+<div class="raffle-item" style="background-color: <%= ["#E14658", "#8341F8", "#33BBEE"].sample %>">
+    <div class="raffle-item-description">
+        <p><%= @raffle.description %></p>
+        <br>
+        <p>A raffle organized by: <b><%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %></b></p>
+    </div>
+    <div class="raffle-item-body">
+        <% if @raffle.prizes.any? %>
+        <h4>Prizes:</h4>
+        <ul>
+            <%= render @raffle.prizes %>
+        </ul>
+        <% end %>
+    </div>
+    <br>
+    <div class="raffle-item-numbers">
+        <p><strong><%= @raffle.number_amount - @raffle.numbers.count %> left!</strong> (of <%= @raffle.number_amount %>)</p>
+    </div>
+</div>
+<p><strong>Raffle ends in <%= distance_of_time_in_words(@time, @raffle.end_date) %></strong></p>
 
-<p>
-  <strong>End date:</strong>
-  <%= @raffle.end_date %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @raffle.description %>
-</p>
-
-<p>
-  <strong>Organizator:</strong>
-  <%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  $<%= @raffle.price %>
-</p>
-
-<p>
-  <strong>Amount of Numbers:</strong>
-  <%= @raffle.numbers.count %> / <%= @raffle.number_amount %>
-</p>
-
-<p>
-  <strong>Participants:</strong>
-  <ul>
-  <% @raffle.numbers.each do |number| %>
-    <li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %>
-      <%= link_to 'Destroy', raffle_number_path(@raffle, number), method: :delete, data: { confirm: 'Are you sure?' } %></li>
-  <% end %>
-  </ul>
-</p>
-
-<% if current_user && current_user.id == @raffle.organizator.id %>
-  <h2>Add a prize:</h2>
-  <%= render "prizes/form" %>
+<% if @raffle.numbers.any? %>
+<p><strong>Who already participated?</strong></p>
+    <strong>Participants:</strong>
+    <ul>
+        <% @raffle.numbers.each do |number| %>
+        <li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %>
+        <%= link_to 'Destroy', raffle_number_path(@raffle, number), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <% end %>
+    </ul>
+<% else %>
+<p><strong>Be the first to buy!</strong></p>
 <% end %>
 
-<br/>
 
+<% if current_user && current_user.id == @raffle.organizator.id %>
+<h2>You can add a prize if you want:</h2>
+<%= render "prizes/form" %>
+<% end %>
+<br/>
 <%= render 'options', raffle: @raffle %>
