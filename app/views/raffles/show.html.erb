@@ -32,6 +32,13 @@
   <%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %>
 </p>
 
+<% if current_user && current_user.id == @raffle.organizator.id %>
+<p>
+  <strong>Earned money:</strong>
+  $<%= @total_money || 0 %>
+</p>
+<% end %>
+
 <p>
   <strong>Price:</strong>
   $<%= @raffle.price %>
@@ -57,7 +64,7 @@
 <%= render "prizes/form" %>
 <% end %>
 
-<% if current_user %>
+<% if current_user && current_user != @raffle.organizator %>
   <%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
 <% end %>
 

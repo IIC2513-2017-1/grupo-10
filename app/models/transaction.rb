@@ -18,8 +18,9 @@ class CustomTransactionValidator < ActiveModel::Validator
 end
 
 class Transaction < ApplicationRecord
-  belongs_to :from_user, foreign_key: 'user_id', class_name: 'User'
-  belongs_to :to_user, foreign_key: 'user_id', class_name: 'User'
+  belongs_to :from_user, class_name: 'User'
+  belongs_to :to_user, class_name: 'User'
+  belongs_to :raffle
 
   validates :amount,
             presence: true,
@@ -34,4 +35,9 @@ class Transaction < ApplicationRecord
   validates_associated :from_user
   validates_associated :to_user
   validates_with CustomTransactionValidator
+
+  def self.transfer(from_user, to_user, amount)
+    from_user.withdraw(amount)
+    to_user.deposit(amount)
+  end
 end
