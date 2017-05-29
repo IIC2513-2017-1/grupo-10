@@ -2,7 +2,6 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :logged_in?, only: %i[transactions]
 
   # GET /users
   # GET /users.json
@@ -23,6 +22,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def transactions
+  	redirect_to user_path(@user) unless current_user
     @made_transactions = Transaction.where from_user: current_user
     @received_transactions = Transaction.where to_user: current_user
   end
