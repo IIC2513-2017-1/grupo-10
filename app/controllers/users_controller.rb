@@ -21,14 +21,20 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit; end
 
+  def transactions
+  	redirect_to user_path(@user) unless current_user
+    @made_transactions = Transaction.where from_user: current_user
+    @received_transactions = Transaction.where to_user: current_user
+  end
+
   # POST /users
   # POST /users.json
   # rubocop:disable Metrics/MethodLength
   def create
     @user = User.new user_params
-
     respond_to do |format|
       if @user.save
+        UserMailer.welcome_mail(@user).deliver_later
         format.html do
           redirect_to @user, notice: 'User was successfully created.'
         end

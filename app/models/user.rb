@@ -18,6 +18,14 @@ class User < ApplicationRecord
   has_many :raffles, foreign_key: 'organizator_id', dependent: :destroy
   has_many :reactions, dependent: :destroy
   has_many :requests, dependent: :destroy
+  has_many  :made_transactions,
+            foreign_key: 'from_user',
+            class_name: 'Transaction',
+            dependent: :destroy
+  has_many  :received_transactions,
+            foreign_key: 'to_user',
+            class_name: 'Transaction',
+            dependent: :destroy
 
   validates :mail,
             presence: true,
@@ -32,7 +40,8 @@ class User < ApplicationRecord
             presence: true,
             length: { minimum: 6 },
             confirmation: true,
-            allow_blank: false
+            allow_blank: false,
+            on: :create
   validates :username,
             presence: true,
             uniqueness: { case_sensitive: false },
@@ -47,4 +56,14 @@ class User < ApplicationRecord
             numericality: true,
             exclusion: { in: [nil] }
   validates_with CustomUserValidator
+
+  def withdraw(amount)
+    self.amount -= amount
+    save
+  end
+
+  def deposit(amount)
+    self.amount += amount
+    save
+  end
 end

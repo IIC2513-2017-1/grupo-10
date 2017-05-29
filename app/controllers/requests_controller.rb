@@ -8,6 +8,7 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
+    redirect_to @user unless current_user == @user
     @requests = @user.requests
     @request = Request.new
   end
@@ -80,6 +81,7 @@ class RequestsController < ApplicationController
   end
 
   def awaiting
+    redirect_to current_user unless current_user&.admin?
     @requests = Request.where(approved: false)
   end
 
@@ -88,6 +90,7 @@ class RequestsController < ApplicationController
     @request.approved = true
     @request.user.amount += @request.amount
     if @request.save && @request.user.save
+      UserMailer.request_approved(@request).deliver_later
       redirect_to requests_path
     else
       redirect_to requests_path, notice: 'Couldn\'t approve request.'

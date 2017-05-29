@@ -11,7 +11,7 @@ class CustomRaffleValidator < ActiveModel::Validator
       record.errors[:start_date].push("Raffle can't start in the past")
     end
     # At least one day of duration
-    return if record.end_date - record.start_date > 1.day
+    return if record.end_date - record.start_date >= 1.day
     record.errors[:start_date].push('Raffle duration should at least be 1 day')
     record.errors[:end_date].push('Raffle duration should at least be 1 day')
   end
@@ -23,6 +23,7 @@ class Raffle < ApplicationRecord
   has_many :participants, through: :numbers, source: :user
   has_many :reactions, dependent: :destroy
   has_many :prizes, dependent: :destroy
+  has_many :transactions, dependent: :destroy
 
   validates :end_date,
             presence: true,
@@ -49,7 +50,7 @@ class Raffle < ApplicationRecord
             numericality: true,
             exclusion: { in: [nil] }
   validates :private,
-            presence: true,
             inclusion: { in: [true, false] }
-  validates_with CustomRaffleValidator
+  validates_with CustomRaffleValidator,
+                 on: :create
 end

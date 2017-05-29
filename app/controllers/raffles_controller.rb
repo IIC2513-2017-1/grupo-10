@@ -11,7 +11,9 @@ class RafflesController < ApplicationController
 
   # GET /raffles/1
   # GET /raffles/1.json
-  def show; end
+  def show
+    @total_money = @raffle.transactions.map(&:amount).reduce(:+)
+  end
 
   # GET /raffles/new
   def new
@@ -87,14 +89,12 @@ class RafflesController < ApplicationController
 
   # Never trust parameters from the scary internet,
   # only allow the white list through.
-  # rubocop:disable Metrics/AbcSize
   def raffle_params
     raffle_param = params.require(:raffle).permit(
-      :description, :organizator, :title,
+      :description, :title,
       :price, :number_amount, :private
     )
-    organizator = User.find raffle_param[:organizator].to_i
-    raffle_param[:organizator] = organizator
+    raffle_param[:organizator] = current_user
     raffle_param[:start_date] = DateTime.parse(
       "#{params[:start_date]} #{params[:start_time]}"
     )
