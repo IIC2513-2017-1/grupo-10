@@ -13,6 +13,14 @@ class RafflesController < ApplicationController
   # GET /raffles/1.json
   def show
     @total_money = @raffle.transactions.map(&:amount).reduce(:+)
+    @raffle = Raffle.find( params[:id] )
+    respond_to do |format|
+      format.html
+      format.json  { 
+        @raffle = Raffle.select_data(Raffle.where({ id: params[:id] })).first
+        render json: @raffle
+      }
+    end
   end
 
   # GET /raffles/new

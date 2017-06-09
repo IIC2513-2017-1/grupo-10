@@ -44,7 +44,5 @@
 <% end %>
 
 <% if current_user && current_user != @raffle.organizator %>
-  <%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
+<%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
 <% end %>
-
-<%= render 'options', raffle: @raffle %>

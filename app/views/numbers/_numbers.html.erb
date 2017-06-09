@@ -1,14 +1,9 @@
-<%= form_tag(raffle_numbers_path(raffle)) do %>
-  <% (raffle.number_amount / 10).times do |n| %>
-    <div class="field">
-      <% 10.times do |i| %>
-          <%= check_box_tag 'numbers[]',
-                            n * 10 + i + 1,
-                            false,
-                            { disabled: (sold_numbers.include?(n * 10 + i + 1)) } %>
-                            <%= n * 10 + i + 1 %>
-      <% end %>
-    </div>
+<svg id="main" width=720 height=420 <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %>></svg>
+
+<%= form_tag(raffle_numbers_path(raffle), id: "buy") do %>
+  <% for n in 1..raffle.number_amount do  %>
+    <input type="checkbox" style="display:none;" name="numbers[]" id="numbers_<%= n %>" value="<%= n %>"/>
   <% end %>
+  </svg>
   <%= submit_tag 'Buy numbers' %>
 <% end %>
