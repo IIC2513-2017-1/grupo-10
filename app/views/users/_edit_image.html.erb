@@ -1,0 +1,9 @@
+<%= form_for @user, url: edit_image_path(@user) do |f| %>
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image, required: true %><br>
+  </div>
+  <div class="field">
+    <%= f.submit 'Update Image' %>
+  </div>
+<% end %>
