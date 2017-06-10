@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   end
 
   def transactions
+  	redirect_to user_path(@user) unless current_user
     @made_transactions = Transaction.where from_user: current_user
     @received_transactions = Transaction.where to_user: current_user
   end
