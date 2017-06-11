@@ -31,13 +31,6 @@ function genGrid(total, bought) {
             }            
             d3.select(this).selectAll('text').style("display", null)
             d3.select(this).selectAll('text').text(function(d) { return d.number })
-            if (d.value === 0) {
-                console.log("Libre")
-            } else if (d.value === 1) {
-                console.log("Selected")
-            } else if (d.value === 2) {
-                console.log("Vendido")
-            }
         })
         .on('mouseout', function(d) {
             d3.select(this).style("cursor", null)
@@ -87,4 +80,16 @@ function getRaffle(id) {
 $(document).on('turbolinks:load', function(){
     var dataId = $('#main').data('params-id');
     getRaffle(dataId)
+
+    $("#buy").on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+        })
+        return false;
+    })
 });
+
+
