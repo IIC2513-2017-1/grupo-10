@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   patch '/requests/:id', to: 'requests#approve', as: :approve
 
   resources :raffles do
-  	resources :prizes
-	resources :numbers, only: [:new, :create, :destroy]
+    resources :prizes, only: [:new, :create]
+    resources :numbers, only: [:new, :create, :destroy]
   end
 
   get '/users/:id/edit_image', to: 'users#edit_image', as: :edit_image
