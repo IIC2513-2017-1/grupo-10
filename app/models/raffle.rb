@@ -55,11 +55,9 @@ class Raffle < ApplicationRecord
                  on: :create
 
   def self.select_data(raffles)
-    raffles.as_json({
-      include:       {
-        numbers:         { only: :number_in_raffle },
-      },
-      include_blank: "No number",
-    })
+    raffles.as_json(include:       {
+                      numbers:         { only: :number_in_raffle }
+                    },
+                    include_blank: 'No number')
   end
 end

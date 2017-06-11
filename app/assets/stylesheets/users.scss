@@ -2,10 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-img {
-  border-radius: 200px;
-}
-
 a.edit-profile-image {
   background-color: inherit;
   color: inherit;
@@ -16,6 +12,9 @@ a.edit-profile-image {
     margin-left: 35px;
     width: 140px;
     visibility: hidden;
+  }
+  img {
+    border-radius: 200px;
   }
 }
 

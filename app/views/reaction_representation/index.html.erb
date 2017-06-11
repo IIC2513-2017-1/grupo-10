@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reactions Available</h1>
+
+<% if @reactions.any? %>
+  <div class="reactions">
+    <% @reactions.each do |reaction| %>
+    <div class="reaction-item">
+      <%= image_tag reaction.image.url(:small) %>
+      <p><%= reaction.description %></p>
+      <%= link_to 'Delete reaction', reaction_path(reaction), method: :delete %>
+    </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>There are not reactions.</p>
+<% end %>
+
+<div class="form-reaction"></div>
+<%= button_to 'Create reaction', new_reaction_path, method: :get, remote: true, id: 'new-reaction' %>

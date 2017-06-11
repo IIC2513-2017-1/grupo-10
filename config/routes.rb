@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'reaction_representation/new'
+
+  get 'reaction_representation/create'
+
+  get 'reaction_representation/destroy'
+
   root "raffles#index"
 
   get '/login', to: 'sessions#new', as: :login
@@ -11,6 +17,14 @@ Rails.application.routes.draw do
   get '/requests', to: 'requests#awaiting', as: :requests
 
   patch '/requests/:id', to: 'requests#approve', as: :approve
+
+  get '/reactions', to: 'reaction_representation#index', as: :reactions
+
+  get '/reactions/new', to: 'reaction_representation#new', as: :new_reaction
+
+  post '/reactions', to: 'reaction_representation#create'
+
+  delete '/reactions/:id', to: 'reaction_representation#destroy', as: :reaction
 
   resources :raffles do
   	resources :prizes

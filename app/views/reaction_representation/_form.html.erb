@@ -1,0 +1,13 @@
+<%= form_for(reaction, url: reactions_path) do |f| %>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div class="field">
+    <%= f.submit 'Create Reaction' %>
+  </div>
+<% end %>
