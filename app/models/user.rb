@@ -11,6 +11,8 @@ end
 class User < ApplicationRecord
   has_secure_password
 
+  has_attached_file :image,
+                    styles: { small: '64x64', med: '100x100', large: '200x200' }
   enum role: %i[user admin]
 
   has_many :numbers, dependent: :destroy
@@ -56,6 +58,10 @@ class User < ApplicationRecord
             numericality: true,
             exclusion: { in: [nil] }
   validates_with CustomUserValidator
+  validates_attachment_content_type :image,
+                                    content_type: %r{\Aimage\/.*\z}
+  validates_attachment_size :image,
+                            less_than: 5.megabytes
 
   def withdraw(amount)
     self.amount -= amount

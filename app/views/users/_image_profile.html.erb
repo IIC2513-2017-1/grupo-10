@@ -1,0 +1,5 @@
+  <% unless @user.image.blank? %>
+    <%= image_tag @user.image.url(:large) %>
+  <% else %>
+    <img src="http://santetotal.com/wp-content/uploads/2014/05/default-user.png" width="auto" height="200" />
+  <% end %>
