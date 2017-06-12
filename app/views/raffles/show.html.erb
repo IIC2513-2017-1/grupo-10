@@ -7,16 +7,18 @@
 
 <div class="raffle-item" style="background-color: <%= ["#E14658", "#8341F8", "#33BBEE"].sample %>">
     <div class="raffle-item-description">
-        <p><%= @raffle.description %></p>
-        <br>
-        <p>A raffle organized by: <b><%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %></b></p>
+      <p><%= @raffle.description %></p>
+      <br>
+      <p>A raffle organized by: <b><%= link_to @raffle.organizator.name, user_path(@raffle.organizator) %></b></p>
     </div>
     <div class="raffle-item-body">
         <% if @raffle.prizes.any? %>
-        <h4>Prizes:</h4>
-        <ul>
-            <%= render @raffle.prizes %>
-        </ul>
+          <h4>Prizes:</h4>
+              <% @raffle.prizes.each do |prize| %>
+                <div class="prize">
+                  <%= render prize %>
+                </div>
+              <% end %>
         <% end %>
     </div>
     <br>
@@ -27,22 +29,22 @@
 <p><strong>Raffle ends in <%= distance_of_time_in_words(@time, @raffle.end_date) %></strong></p>
 
 <% if @raffle.numbers.any? %>
-<p><strong>Who already participated?</strong></p>
-    <strong>Participants:</strong>
-    <ul>
-        <% @raffle.numbers.each do |number| %>
-        <li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %></li>
-        <% end %>
-    </ul>
+  <p><strong>Who already participated?</strong></p>
+  <ul>
+      <% @raffle.numbers.order(:number_in_raffle).each do |number| %>
+      <li><%= number.number_in_raffle %> <%= link_to number.user.name, user_path(number.user) %></li>
+      <% end %>
+  </ul>
 <% else %>
 <p><strong>Be the first to buy!</strong></p>
 <% end %>
 
-<% if current_user && current_user.id == @raffle.organizator.id %>
-<h2>You can add a prize if you want:</h2>
-<%= render "prizes/form" %>
+<% if current_user && current_user == @raffle.organizator %>
+  <h2>You can add a prize if you want:</h2>
+  <%= button_to "Create prize", new_raffle_prize_path(@raffle), remote: true, method: :get, id: "prize-button" %>
+  <div class="prize-form"></div>
 <% end %>
 
 <% if current_user && current_user != @raffle.organizator %>
-<%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
+  <%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
 <% end %>

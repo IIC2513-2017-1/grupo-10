@@ -1,9 +1,17 @@
 # frozen_string_literal: true
 
 class PrizesController < ApplicationController
+  before_action :set_raffle
+
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+
+  def new
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
   def create
-    @raffle = Raffle.find params[:raffle_id]
     prize = @raffle.prizes.build prize_params
 
     respond_to do |format|
@@ -27,6 +35,10 @@ class PrizesController < ApplicationController
   end
 
   private
+
+  def set_raffle
+    @raffle = Raffle.find params[:raffle_id]
+  end
 
   def prize_params
     params.require(:prize).permit(:name, :description, :image)
