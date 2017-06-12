@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170611172247) do
     t.integer "price", null: false
     t.integer "number_amount", null: false
     t.boolean "private", null: false
+    t.boolean "finished", default: false
     t.index ["organizator_id"], name: "index_raffles_on_organizator_id"
   end
 
@@ -107,6 +108,17 @@ ActiveRecord::Schema.define(version: 20170611172247) do
     t.datetime "image_updated_at"
   end
 
+  create_table "winners", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "raffle_id"
+    t.bigint "prize_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prize_id"], name: "index_winners_on_prize_id"
+    t.index ["raffle_id"], name: "index_winners_on_raffle_id"
+    t.index ["user_id"], name: "index_winners_on_user_id"
+  end
+
   add_foreign_key "numbers", "raffles"
   add_foreign_key "numbers", "users"
   add_foreign_key "prizes", "raffles"
@@ -115,4 +127,7 @@ ActiveRecord::Schema.define(version: 20170611172247) do
   add_foreign_key "reactions", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "transactions", "raffles"
+  add_foreign_key "winners", "prizes"
+  add_foreign_key "winners", "raffles"
+  add_foreign_key "winners", "users"
 end

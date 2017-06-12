@@ -39,6 +39,9 @@ Rails.application.routes.draw do
     resources :numbers, only: [:new, :create, :destroy]
   end
 
+  get '/raffles/:id/winners', to: 'raffles#show_winners', as: :show_winners
+  post '/raffles/:id/winners', to: 'raffles#choose_winners', as: :choose_winners
+
   get '/users/:id/edit_image', to: 'users#edit_image', as: :edit_image
   patch '/users/:id/edit_image', to: 'users#update_image'
 
