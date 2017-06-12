@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'reaction/create'
+
+  get 'reaction/destroy'
+
+  get 'reaction_representation/new'
+
+  get 'reaction_representation/create'
+
+  get 'reaction_representation/destroy'
+
   root "raffles#index"
 
   get '/login', to: 'sessions#new', as: :login
@@ -12,9 +22,21 @@ Rails.application.routes.draw do
 
   patch '/requests/:id', to: 'requests#approve', as: :approve
 
+  post '/reaction/:raffle_id/:user_id/:reaction_representation_id',
+        to: 'reactions#react',
+        as: :react
+
+  get '/reactions', to: 'reaction_representation#index', as: :reactions
+
+  get '/reactions/new', to: 'reaction_representation#new', as: :new_reaction
+
+  post '/reactions', to: 'reaction_representation#create'
+
+  delete '/reactions/:id', to: 'reaction_representation#destroy', as: :reaction
+
   resources :raffles do
-  	resources :prizes
-	resources :numbers, only: [:new, :create, :destroy]
+    resources :prizes, only: [:new, :create]
+    resources :numbers, only: [:new, :create, :destroy]
   end
 
   get '/raffles/:id/winners', to: 'raffles#show_winners', as: :show_winners

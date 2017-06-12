@@ -1,0 +1,13 @@
+<% unless @before_reaction.nil? %>
+  var count = +$('#<%= @before_reaction.reaction_representation_id %> p').text();
+  count--;
+  $('#<%= @before_reaction.reaction_representation_id %> p').text(count);
+  $('#<%= @before_reaction.reaction_representation_id %> div.image-reaction-container').removeClass("selected")
+<% end %>
+
+<% unless @reaction.nil? %>
+  var count = +$('#<%= @reaction.reaction_representation_id %> p').text();
+  count++;
+  $('#<%= @reaction.reaction_representation_id %> p').text(count);
+  $('#<%= @reaction.reaction_representation_id %> div.image-reaction-container').addClass("selected")
+<% end %>

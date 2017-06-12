@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612003730) do
+ActiveRecord::Schema.define(version: 20170611172247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,10 +28,13 @@ ActiveRecord::Schema.define(version: 20170612003730) do
   create_table "prizes", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.string "description", null: false
-    t.string "image", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "raffle_id", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["raffle_id"], name: "index_prizes_on_raffle_id"
   end
 
