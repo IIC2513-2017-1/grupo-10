@@ -19,6 +19,7 @@
         </ul>
         <% end %>
         <p><strong>Raffle ends in <%= distance_of_time_in_words(@time, raffle.end_date) %></strong></p>
+          <%= render 'reactions/public_resume', raffle: raffle %>
     </div>
 </div>
 <% end %>

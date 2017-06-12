@@ -1,10 +1,16 @@
 <div class="reactions">
   <% ReactionRepresentation.all.each do |rr| %>
-    <div class="reaction-item">
+    <div class="reaction-item" id=<%= rr.id %>>
       <%= link_to react_path(raffle.id, current_user.id, rr.id), class: "reaction-link", method: :post, remote: true do %>
-        <%= image_tag rr.image.url(:small), class: "img-reaction" %>
+          <% if raffle.reactions.where(reaction_representation: rr, user: current_user).any? %>
+          <div class="image-reaction-container selected">
+          <% else %>
+            <div class="image-reaction-container">
+          <% end %>
+          <%= image_tag rr.image.url(:small), class: "img-reaction" %>
+        </div>
       <% end %>
-      <p id="counter"><%= raffle.reactions.where(reaction_representation: rr).count %></p>
+      <p><%= raffle.reactions.where(reaction_representation: rr).count %></p>
     </div>
   <% end %>
 </div>

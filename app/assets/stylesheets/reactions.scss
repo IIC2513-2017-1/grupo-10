@@ -3,7 +3,6 @@ div.reactions {
 
   .reaction-item {
     display: inline-block;
-    width: 49%;
 
     a.reaction-link {
       background-color: inherit;
@@ -12,8 +11,19 @@ div.reactions {
     .img-reaction {
       width: 32px;
       height: 32px;
-      padding: 10px 10px 10px 10px;
       transition: width 0.1s;
+    }
+
+    div.image-reaction-container {
+      margin-left: 20px;
+      padding: 10px 10px 10px 10px;
+      width: 60px;
+    }
+
+    .selected {
+      background-color: gray;
+      border-radius: 100px;
+      box-shadow: 1px 1px black;
     }
 
     .img-reaction:hover {
