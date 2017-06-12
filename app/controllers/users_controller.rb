@@ -95,6 +95,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def upgrade
+    @user = User.find(params[:user_id])
+    @user.admin!
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
+  def downgrade
+    @user = User.find(params[:user_id])
+    @user.user!
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
