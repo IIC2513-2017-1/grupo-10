@@ -19,7 +19,14 @@
         <td><%= link_to user.name, user %></td>
         <td><%= user.mail %></td>
         <td><%= user.username %></td>
-        <td><%= user.role %></td>
+        <td id=<%= "role-" + user.id.to_s %>><%= user.role %></td>
+        <% if current_user&.admin? && user != current_user %>
+          <% if user.user? %>
+            <td id=<%= user.id %>><%= button_to 'Upgrade to admin', user_upgrade_path(user), remote: true %></td>
+          <% else %>
+            <td id=<%= user.id %>><%= button_to 'Downgrade to user', user_downgrade_path(user), remote: true %></td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

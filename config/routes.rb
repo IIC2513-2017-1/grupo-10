@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get '/sign-up', to: 'users#new', as: :sign_up
   resources :users do
     resources :requests
+    post 'upgrade', to: 'users#upgrade', as: :upgrade
+    post 'downgrade', to: 'users#downgrade', as: :downgrade
   end
 
   get '/users/:id/transactions', to: 'users#transactions', as: :transactions
