@@ -1,8 +1,9 @@
-<% if current_user&.admin? %>
+<% if current_user&.admin? && current_user == @user %>
   <%= link_to 'Awaiting requests', requests_path %> |
+  <%= link_to 'Create reaction', reactions_path %> |
 <% end %>
 
-<% if current_user %>
+<% if current_user && current_user == @user %>
   <%= link_to 'Deposit', user_requests_path(user) %> |
 <% end %>
 
