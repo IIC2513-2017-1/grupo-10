@@ -27,6 +27,8 @@ gem('jbuilder', '~> 2.6', '>= 2.6.3')
 # Safe password handling. Read more: https://github.com/codahale/bcrypt-ruby
 gem('bcrypt', '~> 3.1', '>= 3.1.11', platform: :ruby)
 
+gem('paperclip')
+
 group :development, :test do
   # Debugger console. Read more: https://github.com/deivid-rodriguez/byebug
   gem('byebug', '~> 9.0', '>= 9.0.6', platform: :mri)

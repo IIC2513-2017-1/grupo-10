@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528135030) do
+ActiveRecord::Schema.define(version: 20170611172247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,10 +28,13 @@ ActiveRecord::Schema.define(version: 20170528135030) do
   create_table "prizes", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.string "description", null: false
-    t.string "image", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "raffle_id", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["raffle_id"], name: "index_prizes_on_raffle_id"
   end
 
@@ -46,14 +49,18 @@ ActiveRecord::Schema.define(version: 20170528135030) do
     t.integer "price", null: false
     t.integer "number_amount", null: false
     t.boolean "private", null: false
+    t.boolean "finished", default: false
     t.index ["organizator_id"], name: "index_raffles_on_organizator_id"
   end
 
   create_table "reaction_representations", id: :serial, force: :cascade do |t|
-    t.string "image", null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "reactions", id: :serial, force: :cascade do |t|
@@ -95,6 +102,21 @@ ActiveRecord::Schema.define(version: 20170528135030) do
     t.integer "role"
     t.integer "amount"
     t.string "password_digest"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  create_table "winners", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "raffle_id"
+    t.bigint "prize_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prize_id"], name: "index_winners_on_prize_id"
+    t.index ["raffle_id"], name: "index_winners_on_raffle_id"
+    t.index ["user_id"], name: "index_winners_on_user_id"
   end
 
   add_foreign_key "numbers", "raffles"
@@ -105,4 +127,7 @@ ActiveRecord::Schema.define(version: 20170528135030) do
   add_foreign_key "reactions", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "transactions", "raffles"
+  add_foreign_key "winners", "prizes"
+  add_foreign_key "winners", "raffles"
+  add_foreign_key "winners", "users"
 end

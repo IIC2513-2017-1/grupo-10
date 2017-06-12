@@ -53,4 +53,19 @@ class Raffle < ApplicationRecord
             inclusion: { in: [true, false] }
   validates_with CustomRaffleValidator,
                  on: :create
+
+  def has_winners
+    Winner.where(raffle_id: id).present?
+  end
+
+  def has_ended
+    Time.now > end_date
+  end
+
+  def self.select_data(raffles)
+    raffles.as_json(include:       {
+                      numbers:         { only: :number_in_raffle }
+                    },
+                    include_blank: 'No number')
+  end
 end

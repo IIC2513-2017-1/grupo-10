@@ -1,3 +1,32 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+a.edit-profile-image {
+  background-color: inherit;
+  color: inherit;
+  p {
+    font-size: 20px;
+    position: relative;
+    margin-top: -55px;
+    margin-left: 35px;
+    width: 140px;
+    visibility: hidden;
+  }
+  img {
+    border-radius: 200px;
+  }
+}
+
+a.edit-profile-image:hover {
+  text-decoration: none;
+  p {
+    color: white;
+    visibility: visible;
+    text-shadow: 2px 2px black;
+    font-weight: bold;
+  }
+  img {
+    opacity: 0.5;
+  }
+}

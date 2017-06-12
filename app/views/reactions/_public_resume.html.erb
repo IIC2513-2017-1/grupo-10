@@ -1,0 +1,8 @@
+<div class="reactions">
+  <% ReactionRepresentation.all.each do |rr| %>
+    <div class="reaction-item">
+      <%= image_tag rr.image.url(:small) %>
+      <p><%= raffle.reactions.where(reaction_representation: rr).count %></p>
+    </div>
+  <% end %>
+</div>

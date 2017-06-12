@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user,
+                only: %i[show edit update destroy edit_image update_image]
 
   # GET /users
   # GET /users.json
@@ -21,15 +22,35 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit; end
 
+  def edit_image
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def update_image
+    respond_to do |format|
+      if @user.update(image_params)
+        format.html do
+          redirect_to @user, notice: 'User\'s image was successfully updated.'
+        end
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render @user }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def transactions
-  	redirect_to user_path(@user) unless current_user
+    redirect_to user_path(@user) unless current_user
     @made_transactions = Transaction.where from_user: current_user
     @received_transactions = Transaction.where to_user: current_user
   end
 
   # POST /users
   # POST /users.json
-  # rubocop:disable Metrics/MethodLength
   def create
     @user = User.new user_params
     respond_to do |format|
@@ -91,5 +112,9 @@ class UsersController < ApplicationController
     user_params[:role] = :user
     user_params[:amount] = 0
     user_params
+  end
+
+  def image_params
+    params.require(:user).permit(:image)
   end
 end

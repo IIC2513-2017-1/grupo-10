@@ -13,6 +13,14 @@ class RafflesController < ApplicationController
   # GET /raffles/1.json
   def show
     @total_money = @raffle.transactions.map(&:amount).reduce(:+)
+    @raffle = Raffle.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json do
+        @raffle = Raffle.select_data(Raffle.where(id: params[:id])).first
+        render json: @raffle
+      end
+    end
   end
 
   # GET /raffles/new
@@ -76,7 +84,42 @@ class RafflesController < ApplicationController
     end
   end
 
+  # GET /raffles/1/winners
+  def show_winners
+    @raffle = Raffle.find(params[:id])
+    @winners = Winner.where(raffle_id: @raffle.id).select(:user_id, :prize_id)
+    @winners = Winner.format_json(@winners)
+    render(json: @winners)
+  end
+
+  # POST /raffles/1/winners
+  def choose_winners
+    @raffle = Raffle.find(params[:id])
+    puts 'A'
+    if current_user && current_user == @raffle.organizator
+      @winners = Winner.where(raffle_id: @raffle.id)
+      assign_prizes if @winners.empty?
+      render(json: @winners)
+      return
+    end
+    puts 'B'
+    render(json: { mensaje: 'Unauthorized' }.as_json,
+           status: 401)
+  end
+
   private
+
+  def assign_prizes
+    must_assign = [@raffle.prizes.size, @raffle.numbers.size].min
+    @prizes = @raffle.prizes.shuffle.sample(must_assign)
+    @users = @raffle.numbers.shuffle.sample(must_assign).map do |winner_number|
+      User.find_by_id(winner_number.user_id)
+    end
+    @winners = []
+    @prizes.zip(@users).each do |prize, user|
+      @winners << Winner.create(user_id: user.id, raffle_id: @raffle.id, prize_id: prize.id)
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_raffle
