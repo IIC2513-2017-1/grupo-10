@@ -1,0 +1,10 @@
+<div class="reactions">
+  <% ReactionRepresentation.all.each do |rr| %>
+    <div class="reaction-item">
+      <%= link_to react_path(raffle.id, current_user.id, rr.id), class: "reaction-link", method: :post, remote: true do %>
+        <%= image_tag rr.image.url(:small), class: "img-reaction" %>
+      <% end %>
+      <p id="counter"><%= raffle.reactions.where(reaction_representation: rr).count %></p>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,25 @@
+div.reactions {
+  text-align: center;
+
+  .reaction-item {
+    display: inline-block;
+    width: 49%;
+
+    a.reaction-link {
+      background-color: inherit;
+    }
+
+    .img-reaction {
+      width: 32px;
+      height: 32px;
+      padding: 10px 10px 10px 10px;
+      transition: width 0.1s;
+    }
+
+    .img-reaction:hover {
+      width: 35px;
+    }
+
+  }
+
+}

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'reaction/create'
+
+  get 'reaction/destroy'
+
   get 'reaction_representation/new'
 
   get 'reaction_representation/create'
@@ -17,6 +21,10 @@ Rails.application.routes.draw do
   get '/requests', to: 'requests#awaiting', as: :requests
 
   patch '/requests/:id', to: 'requests#approve', as: :approve
+
+  post '/reaction/:raffle_id/:user_id/:reaction_representation_id',
+        to: 'reactions#react',
+        as: :react
 
   get '/reactions', to: 'reaction_representation#index', as: :reactions
 

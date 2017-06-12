@@ -6,7 +6,7 @@
   <div class="reactions">
     <% @reactions.each do |reaction| %>
     <div class="reaction-item">
-      <%= image_tag reaction.image.url(:small) %>
+      <%= image_tag reaction.image.url(:med) %>
       <p><%= reaction.description %></p>
       <%= link_to 'Delete reaction', reaction_path(reaction), method: :delete %>
     </div>
@@ -18,3 +18,5 @@
 
 <div class="form-reaction"></div>
 <%= button_to 'Create reaction', new_reaction_path, method: :get, remote: true, id: 'new-reaction' %>
+
+<%= link_to 'Back', user_path(current_user) %>

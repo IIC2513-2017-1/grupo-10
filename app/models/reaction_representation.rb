@@ -3,7 +3,7 @@
 class ReactionRepresentation < ApplicationRecord
   has_many :reactions, dependent: :destroy
   has_attached_file :image,
-                    styles: { small: '64x64', med: '100x100', large: '200x200' }
+                    styles: { small: '32x32', med: '64x64' }
 
   validates :image, # http://stackoverflow.com/a/6645740/3281097
             presence: true
