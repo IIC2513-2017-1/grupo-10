@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529033905) do
+ActiveRecord::Schema.define(version: 20170612003730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,14 +46,18 @@ ActiveRecord::Schema.define(version: 20170529033905) do
     t.integer "price", null: false
     t.integer "number_amount", null: false
     t.boolean "private", null: false
+    t.boolean "finished", default: false
     t.index ["organizator_id"], name: "index_raffles_on_organizator_id"
   end
 
   create_table "reaction_representations", id: :serial, force: :cascade do |t|
-    t.string "image", null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "reactions", id: :serial, force: :cascade do |t|
@@ -101,6 +105,17 @@ ActiveRecord::Schema.define(version: 20170529033905) do
     t.datetime "image_updated_at"
   end
 
+  create_table "winners", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "raffle_id"
+    t.bigint "prize_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prize_id"], name: "index_winners_on_prize_id"
+    t.index ["raffle_id"], name: "index_winners_on_raffle_id"
+    t.index ["user_id"], name: "index_winners_on_user_id"
+  end
+
   add_foreign_key "numbers", "raffles"
   add_foreign_key "numbers", "users"
   add_foreign_key "prizes", "raffles"
@@ -109,4 +124,7 @@ ActiveRecord::Schema.define(version: 20170529033905) do
   add_foreign_key "reactions", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "transactions", "raffles"
+  add_foreign_key "winners", "prizes"
+  add_foreign_key "winners", "raffles"
+  add_foreign_key "winners", "users"
 end
