@@ -77,9 +77,31 @@ function getRaffle(id) {
     })
 }
 
+function getWinners(id) {
+    if (id == null) {
+        return 
+    }
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/raffles/" + id + "/winners",
+        success: function(json) {
+            var baseUrl = window.location.protocol + "//" + window.location.host
+            $.each(json, function(index, val) {
+                var itemUrl = baseUrl + val["url"]
+                $("#winners").append(
+                    '<li><a href="' + itemUrl + '"">' + val["username"] + '</a> won ' + val["prize"] + '</li>'
+                    )
+            })
+        }
+    })
+}
+
 $(document).on('turbolinks:load', function(){
-    var dataId = $('#main').data('params-id');
-    getRaffle(dataId)
+    var numbers_dataId = $('#main').data('params-id');
+    getRaffle(numbers_dataId)
+    var winners_dataId = $('#winners').data('params-id');
+    getWinners(winners_dataId)
 
     $("#buy").on('submit', function(e) {
         e.preventDefault()
@@ -87,6 +109,19 @@ $(document).on('turbolinks:load', function(){
             type: "POST",
             url: $(this).attr('action'),
             data: $(this).serialize(),
+        })
+        return false;
+    })
+
+    $("#raffle").on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function() {
+                location.reload();
+            }
         })
         return false;
     })

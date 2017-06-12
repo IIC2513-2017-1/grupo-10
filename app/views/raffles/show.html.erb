@@ -5,6 +5,8 @@
 <h1><%= @raffle.title %></h1>
 <h3>$ <%= @raffle.price %> per number</h3>
 
+
+
 <div class="raffle-item" style="background-color: <%= ["#E14658", "#8341F8", "#33BBEE"].sample %>">
     <div class="raffle-item-description">
         <p><%= @raffle.description %></p>
@@ -39,10 +41,20 @@
 <% end %>
 
 <% if current_user && current_user.id == @raffle.organizator.id %>
+<% if @raffle.has_winners %>
+<h2>This are the winners</h2>
+<%= render "raffles/winners", raffle: @raffle %>
+<% elsif @raffle.has_ended %>
+<h2>Choose winners</h2>
+<%= form_for @raffle, :url => { :action => "choose_winners" }, :html => { :method => "post", :id => "raffle" }  do |f| %>
+  <%= submit_tag 'Choose winners' %>
+<% end %>
+<% else %>
 <h2>You can add a prize if you want:</h2>
 <%= render "prizes/form" %>
 <% end %>
+<% end %>
 
-<% if current_user && current_user != @raffle.organizator %>
+<% if current_user && current_user != @raffle.organizator && !@raffle.is_over%>
 <%= render 'numbers/numbers', raffle: @raffle, sold_numbers: @raffle.numbers.pluck(:number_in_raffle) %>
 <% end %>
