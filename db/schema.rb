@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170611172247) do
+ActiveRecord::Schema.define(version: 20170612003730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,14 +93,14 @@ ActiveRecord::Schema.define(version: 20170611172247) do
     t.index ["raffle_id"], name: "index_transactions_on_raffle_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "mail"
-    t.string "name"
-    t.string "username"
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "mail", null: false
+    t.string "name", null: false
+    t.string "username", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
-    t.integer "amount"
+    t.integer "role", null: false
+    t.integer "amount", null: false
     t.string "password_digest"
     t.string "image_file_name"
     t.string "image_content_type"

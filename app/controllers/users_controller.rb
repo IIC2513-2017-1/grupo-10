@@ -56,6 +56,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         UserMailer.welcome_mail(@user).deliver_later
+        session[:user_id] = @user.id
         format.html do
           redirect_to @user, notice: 'User was successfully created.'
         end
