@@ -19,6 +19,7 @@ admin = User.create!(
   amount: 99_999,
   role: :admin
 )
+admin.generate_token_and_save
 figarrido = User.create!(
   mail: 'figarrido@uc.cl',
   name: 'Felipe Garrido',
@@ -27,6 +28,7 @@ figarrido = User.create!(
   amount: 1500,
   role: :user
 )
+figarrido.generate_token_and_save
 aaossa = User.create!(
   mail: 'aaossa@uc.cl',
   name: 'Antonio Ossa',
@@ -35,6 +37,7 @@ aaossa = User.create!(
   amount: 1500,
   role: :user
 )
+aaossa.generate_token_and_save
 puts 'Users:'
 puts "#{admin.username}, #{admin.password}"
 puts "#{figarrido.username}, #{figarrido.password}"
