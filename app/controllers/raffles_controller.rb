@@ -6,7 +6,7 @@ class RafflesController < ApplicationController
   # GET /raffles
   # GET /raffles.json
   def index
-    @raffles = Raffle.all
+    @raffles = Raffle.where(private: false)
   end
 
   # GET /raffles/1
