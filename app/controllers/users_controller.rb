@@ -56,6 +56,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         UserMailer.welcome_mail(@user).deliver_later
+        session[:user_id] = @user.id
         format.html do
           redirect_to @user, notice: 'User was successfully created.'
         end
@@ -92,6 +93,22 @@ class UsersController < ApplicationController
         redirect_to users_url, notice: 'User was successfully destroyed.'
       end
       format.json { head :no_content }
+    end
+  end
+
+  def upgrade
+    @user = User.find(params[:user_id])
+    @user.admin!
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
+  def downgrade
+    @user = User.find(params[:user_id])
+    @user.user!
+    respond_to do |format|
+      format.js { render layout: false }
     end
   end
 

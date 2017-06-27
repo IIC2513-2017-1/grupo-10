@@ -1,0 +1,3 @@
+$("#<%= @user.id %> form").attr("action", "<%= user_upgrade_path(@user) %>")
+$("#<%= @user.id %> form input[type=submit]").attr("value", "Upgrade to admin")
+$("#<%= 'role-' + @user.id.to_s %>").text("<%= @user.role %>")
