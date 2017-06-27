@@ -6,7 +6,7 @@ class RafflesController < ApplicationController
   # GET /raffles
   # GET /raffles.json
   def index
-    @raffles = Raffle.all
+    @raffles = Raffle.all.sort_by { |r| [r.pinned ? 0 : 1, r.end_date] }
   end
 
   # GET /raffles/1
