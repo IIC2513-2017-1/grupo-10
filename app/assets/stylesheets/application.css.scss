@@ -25,6 +25,8 @@ header {
 	color: white;
 	background-color: #22252c;
 	border-bottom: 1px solid black;
+   	position:fixed;
+   	width:100%;
 
 	a,
 	a:visited {
@@ -67,6 +69,7 @@ main {
 	color: #22252c;
 	margin: 0 auto;
 	padding: 20px;
+	padding-top: 60px;
 	max-width: 1000px;
 	background-color: #ffd96f;
 	-moz-border-radius: 10px;
