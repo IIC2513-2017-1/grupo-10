@@ -56,5 +56,14 @@ Rails.application.routes.draw do
   get '/users/:id/transactions', to: 'users#transactions', as: :transactions
 
   get 'auth/:provider/callback', to: 'raffles#set_token', as: :request_token
+
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:show]
+      resources :raffles, only: [:index, :create, :show] do
+        resources :numbers, only: [:create]
+      end
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

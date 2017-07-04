@@ -8,6 +8,7 @@ module Seller
   end
 
   def sell(raffle, numbers)
+    current_user = current_user || @current_user
     total_amount = numbers.size * raffle.price
     return unless enough_money?(current_user, total_amount)
     organizator = raffle.organizator
@@ -19,6 +20,7 @@ module Seller
   end
 
   def number_params(numbers)
+    current_user = current_user || @current_user
     numbers.collect do |number|
       { user: current_user, number_in_raffle: number }
     end

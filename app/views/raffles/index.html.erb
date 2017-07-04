@@ -3,6 +3,10 @@
 
 <h1>Explore Rafflies</h1>
 
+<% if current_user %>
+<%= button_to "Create raffle", new_raffle_path, method: :get %>
+<% end %>
+
 <% @raffles.each do |raffle| %>
 <div class="raffle-item">
     <div class="raffle-item-header">
