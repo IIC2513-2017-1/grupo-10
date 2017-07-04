@@ -8,7 +8,7 @@ class RafflesController < ApplicationController
   # GET /raffles
   # GET /raffles.json
   def index
-    @raffles = Raffle.where(private: false)
+    @raffles = Raffle.where(private: false).sort_by { |r| [r.pinned ? 0 : 1, r.end_date] }
   end
 
   def set_token
