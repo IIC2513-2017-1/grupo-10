@@ -1,12 +1,30 @@
 # frozen_string_literal: true
 
 class RafflesController < ApplicationController
-  before_action :set_raffle, only: %i[show edit update destroy]
+  include TwitterAPI
+  before_action :set_raffle, only: %i[show edit update destroy tweet]
   before_action :set_users, only: %i[new edit create]
+
   # GET /raffles
   # GET /raffles.json
   def index
     @raffles = Raffle.where(private: false)
+  end
+
+  def set_token
+    response = request.env['omniauth.auth']
+    session[:token] = response[:credentials][:token]
+    session[:secret] = response[:credentials][:secret]
+    redirect_to user_path(current_user)
+  end
+
+  def tweet
+    case tweet_raffle(@raffle).code
+    when '403'
+      redirect_to @raffle, alert: 'Raffle has already been tweeted.'
+    when '200'
+      redirect_to @raffle, notice: 'Your raffle was successfully tweeted.'
+    end
   end
 
   # GET /raffles/1

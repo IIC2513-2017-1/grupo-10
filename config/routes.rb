@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   get '/raffles/:id/winners', to: 'raffles#show_winners', as: :show_winners
   post '/raffles/:id/winners', to: 'raffles#choose_winners', as: :choose_winners
+  post '/raffles/:id/tweet', to: 'raffles#tweet', as: :tweet_raffle
 
   get '/users/:id/edit_image', to: 'users#edit_image', as: :edit_image
   patch '/users/:id/edit_image', to: 'users#update_image'
@@ -53,5 +54,7 @@ Rails.application.routes.draw do
   end
 
   get '/users/:id/transactions', to: 'users#transactions', as: :transactions
+
+  get 'auth/:provider/callback', to: 'raffles#set_token', as: :request_token
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
