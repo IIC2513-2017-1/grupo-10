@@ -29,6 +29,8 @@ gem('bcrypt', '~> 3.1', '>= 3.1.11', platform: :ruby)
 
 gem('paperclip')
 
+gem('omniauth-twitter')
+
 group :development, :test do
   # Debugger console. Read more: https://github.com/deivid-rodriguez/byebug
   gem('byebug', '~> 9.0', '>= 9.0.6', platform: :mri)
