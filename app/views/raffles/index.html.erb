@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <% @title = "Raffles index" %>
 
-<h1>Explore Rafflies</h1>
+<h1 class="raffle-title">Explore Rafflies</h1>
 
 <% if current_user %>
 <%= button_to "Create raffle", new_raffle_path, method: :get %>

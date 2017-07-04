@@ -71,6 +71,28 @@ main {
 	background-color: #ffd96f;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+
+	input, textarea {
+	    padding: 6px 10px;
+	    margin: 8px 0;
+	    width: 100%;
+	    display: inline-block;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    box-sizing: border-box;
+	}
+
+	input[type=submit] {
+	    background-color: #0a389a;
+	    color: white;
+	    font-family: verdana, arial, helvetica, sans-serif;
+	    padding: 14px 20px;
+	    margin: 8px 0;
+	    border: none;
+	    font-weight: bold;
+	    border-radius: 4px;
+	    cursor: pointer;
+	}
 }
 
 footer {
