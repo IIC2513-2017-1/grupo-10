@@ -1,31 +1,29 @@
 <p id="notice"><%= notice %></p>
 
+<div class="options">
+<%= render 'options', user: @user %>
+</div>
+
 <h1><%= @user.username %></h1>
-<table style="width:80%; margin: 0 auto;">
-    <tr>
-          <td>
-            <% if current_user == @user%>
-              <%= link_to edit_image_path(@user), class: "edit-profile-image", remote: true do %>
-                <%= render 'image_profile' %>
-                <p>Change Image</p>
-              <% end %>
-            <% else %>
-              <%= render 'image_profile' %>
+<div class="container">    
+    <div class="profile-pic" style="display: inline-block; vertical-align: middle;">
+        <% if current_user == @user%>
+            <%= link_to edit_image_path(@user), class: "edit-profile-image", remote: true do %>
+            <%= render 'image_profile' %>
+            <p>Change Image</p>
             <% end %>
-          </td>
-        <td>
-            <ul>
-                <li><%= @user.name %></li>
-                <li><%= @user.mail %></li>
-                <li>$ <%= @user.amount %></li>
-                <li>Rifas Organizadas: <%= @user.raffles.length %></li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <%= render 'options', user: @user %>
-    </tr>
-</table>
+        <% else %>
+            <%= render 'image_profile' %>
+        <% end %>
+    </div>
+
+    <div class="info" style="display: inline-block; vertical-align: middle;">
+        <h3><%= @user.name %></h3>
+        <h5><%= @user.mail %></h5>
+        <h5><%= @user.amount %></h5>
+        <h5>Rifas Organizadas: <%= @user.raffles.length %></h5>
+    </div>    
+</div>
 
 <div class="image-form"></div>
 

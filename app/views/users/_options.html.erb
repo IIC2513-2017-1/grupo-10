@@ -1,15 +1,66 @@
-<% if current_user&.admin? && current_user == @user %>
-  <%= link_to 'Awaiting requests', requests_path %> |
-  <%= link_to 'Create reaction', reactions_path %> |
+<% if current_user %>
+<ul id="menu">
+  <% if current_user&.admin? && current_user == @user %>
+  <li><a href="#">Admin actions</a>
+    <ul>
+      <li><%= link_to 'Awaiting requests', requests_path %></li>
+      <li><%= link_to 'Create reaction', reactions_path %></li>
+    </ul>
+  </li>
+  <% end %>
+  <% if current_user && current_user == @user %>
+  <li><a href="#">User actions</a>
+    <ul>
+      <li><%= link_to 'Deposit', user_requests_path(user) %></li>
+      <li><%= link_to 'My transactions', transactions_path(user) %></li>
+      <li><%= link_to 'Edit Profile', edit_user_path(user) %></li>
+    </ul>
+  </li>
+  <% end %>
+</ul>
 <% end %>
 
-<% if current_user && current_user == @user %>
-  <%= link_to 'Deposit', user_requests_path(user) %> |
-<% end %>
-
-<% if current_user == user%>
-  <%= link_to 'My transactions', transactions_path(user) %> |
-  <%= link_to 'Edit Profile', edit_user_path(user) %> |
-<% end %>
-
-<%= link_to 'Back', users_path %>
+<style type="text/css">
+    #menu {
+    	display: ;
+    	margin-right: 150px;
+    }
+    #menu, #menu ul {
+    	padding: 0;
+		list-style: none;
+		float: right;
+		margin: 0;
+		margin-right: 150px;
+		border: 1px solid #000;
+	}
+	#menu li {
+		float: left;
+		position: relative;
+		border: 1px solid none;	
+	}
+	#menu ul {
+		position: absolute;
+		width: 200px;
+		padding: 0;
+		display: none;
+	}
+	#menu ul li {
+		float: none;
+		margin: 0;
+		padding: 0;
+		line-height: 15px;
+	}
+	#menu a:link, #menu a:visited {
+		display: block;
+		font-weight: bold;
+		text-align: left;
+		text-decoration: none;
+		padding: 5px;
+	}
+	#menu li:hover {
+		border: 1px solid #000;		
+	}
+	#menu li:hover ul {
+		display: block;
+	}
+</style>
