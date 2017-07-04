@@ -14,7 +14,13 @@
   <% end %>
 </div>
 
-
+<% if current_user && current_user == @raffle.organizator && !@raffle.has_ended %>
+  <% if session[:token] %>
+    <%= link_to "Tweet your raffle", tweet_raffle_path(@raffle), method: :post %>
+  <% else %>
+    <%= link_to "Connect with Twitter", "/auth/twitter" %>
+  <% end %>
+<% end %>
 
 <div class="raffle-item" style="background-color: <%= ["#E14658", "#8341F8", "#33BBEE"].sample %>">
     <div class="raffle-item-description">
